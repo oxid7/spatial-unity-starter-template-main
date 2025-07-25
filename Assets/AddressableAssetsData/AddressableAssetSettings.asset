@@ -17,7 +17,7 @@ MonoBehaviour:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -29,20 +29,20 @@ MonoBehaviour:
   m_ContiguousBundles: 1
   m_StripUnityVersionFromBundleBuild: 0
   m_DisableVisibleSubAssetRepresentations: 0
-  m_ShaderBundleNaming: 0
+  m_ShaderBundleNaming: 1
   m_ShaderBundleCustomNaming: 
-  m_MonoScriptBundleNaming: 0
+  m_MonoScriptBundleNaming: 2
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 229bdb4d6edc8fd45a8c97b527276713
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: 480cd0f4820552043a03c07783c4c61b
   m_ContentStateBuildPathProfileVariableName: 
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
-  m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
+  m_overridePlayerVersion: spatial
   m_GroupAssets:
   - {fileID: 11400000, guid: c6e8fab4b5659fd49aaa9dcbc3b8b0fe, type: 2}
   - {fileID: 11400000, guid: 41044188d33141b44a31c9630454c87b, type: 2}
@@ -67,6 +67,10 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: f564ae0e708f6254b854336862f52877
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+      - m_Id: 229bdb4d6edc8fd45a8c97b527276713
+        m_Value: Library/AssetBundles/Sandbox
+      - m_Id: 480cd0f4820552043a03c07783c4c61b
+        m_Value: '{SpatialSys.Client.AddressablesManager.spaceBundlesURLPrefix}'
     m_ProfileEntryNames:
     - m_Id: e04e7863449184246b815aa2b45a9d07
       m_Name: BuildTarget
@@ -82,6 +86,12 @@ MonoBehaviour:
       m_InlineUsage: 0
     - m_Id: f564ae0e708f6254b854336862f52877
       m_Name: Remote.LoadPath
+      m_InlineUsage: 0
+    - m_Id: 229bdb4d6edc8fd45a8c97b527276713
+      m_Name: SpatialBuildPath
+      m_InlineUsage: 0
+    - m_Id: 480cd0f4820552043a03c07783c4c61b
+      m_Name: SpatialLoadPath
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:

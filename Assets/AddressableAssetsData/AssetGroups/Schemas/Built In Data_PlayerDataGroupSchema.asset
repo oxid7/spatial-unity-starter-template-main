@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Group: {fileID: 11400000, guid: c6e8fab4b5659fd49aaa9dcbc3b8b0fe, type: 2}
   m_IncludeResourcesFolders: 1
-  m_IncludeBuildSettingsScenes: 1
+  m_IncludeBuildSettingsScenes: 0

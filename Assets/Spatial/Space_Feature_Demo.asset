@@ -19,10 +19,12 @@ MonoBehaviour:
   savedProjectSettings: {fileID: 11400000, guid: b4d3f3931508d4e3381693ee23f6fe04,
     type: 2}
   worldID: 2nddbgxunztqzgmhsaqkm
-  scene: {fileID: 102900000, guid: 8ae582cb440993f47bff711dda6dd865, type: 3}
+  scene: {fileID: 102900000, guid: 02025d966390ac547958f42c2d35f365, type: 3}
   csharpAssembly: {fileID: 5897886265953266890, guid: 80205ef718c99124a91c8f4321447772,
     type: 3}
-  embeddedPackageAssets: []
+  embeddedPackageAssets:
+  - id: 1
+    asset: {fileID: 986926959822066499, guid: d7f1dadafefda104785fa7394cdeff05, type: 3}
   networkPrefabs: []
   settings:
     serverInstancingEnabled: 1
