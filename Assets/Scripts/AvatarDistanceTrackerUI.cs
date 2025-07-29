@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI; // For regular UI (Text)
 using SpatialSys.UnitySDK;
 using TMPro;
@@ -6,8 +6,12 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
 {
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
 
-    public TextMeshProUGUI distanceText; // Assign this in the Inspector
+    public GameObject watchButton;
 
+    public TextMeshProUGUI vStep; // Assign this in the Inspector
+    public TextMeshProUGUI vCal;
+    public TextMeshProUGUI information;
+    public TMP_InputField emailFiled;
     private Vector3 lastPosition;
     private float totalDistanceTravelled = 0f;
 
@@ -16,6 +20,11 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
     public float updateInterval = 1f; // seconds
     public bool calculate = false;
 
+
+
+    private float step;
+    private float cal;
+    private string email;
     private void Start()
     {
         calculate = false;
@@ -25,7 +34,7 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
     {
         if (!calculate) 
         {
-            distanceText.enabled = false;
+            // distanceText.enabled = false;
             return;
         }
 
@@ -41,7 +50,7 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         {
             lastPosition = currentPosition;
             isInitialized = true;
-            distanceText.enabled = true;
+           // distanceText.enabled = true;
             return;
         }
 
@@ -54,14 +63,43 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         if (timer >= updateInterval)
         {
             int distanceInt = Mathf.RoundToInt(totalDistanceTravelled);
-            distanceText.text = "Traveled: " + distanceInt + " meters";
+            // Step 1: Estimate steps (assume average step length = 0.8 meters)
+            float stepLength = 0.8f; // meters per step
+            int estimatedSteps = Mathf.RoundToInt(totalDistanceTravelled / stepLength);
+
+            // Step 2: Estimate kcal burned (1000 steps ≈ 40 kcal)
+            float kcalPerStep = 40f / 1000f;
+            float estimatedKcal = estimatedSteps * kcalPerStep;
+
+            // display or store values
+            cal = estimatedKcal;
+            step = estimatedSteps;
+
 
             timer = 0f; // reset timer
         }
     }
 
-    public void Respawn()
+
+    public void SetEmail()
     {
-        localAvatar.Respawn();
+        email = emailFiled.text;
     }
+    public void EnableTracker()
+    {
+        watchButton.SetActive(true);
+        calculate = true;
+    }
+
+    public void ShowWatch()
+    {
+
+
+        vStep.text = step.ToString();
+        vCal.text = cal.ToString();
+        information.text = email;
+
+
+    }
+   
 }

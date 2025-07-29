@@ -25,6 +25,8 @@ MonoBehaviour:
   embeddedPackageAssets:
   - id: 1
     asset: {fileID: 986926959822066499, guid: d7f1dadafefda104785fa7394cdeff05, type: 3}
+  - id: 2
+    asset: {fileID: 986926959822066499, guid: f51db02eb8664484b9e7f42cc35ceb25, type: 3}
   networkPrefabs: []
   settings:
     serverInstancingEnabled: 1

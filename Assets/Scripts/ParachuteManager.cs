@@ -8,6 +8,7 @@ public class ParachuteManager : MonoBehaviour
     [SerializeField] private Transform startPoint;
     [SerializeField] private Vector3 force;
     [SerializeField] private string parachuteID;
+    [SerializeField] private AvatarDistanceTrackerUI trackerUI;
    // [SerializeField] private AvatarDistanceTrackerUI distanceTrackerUI;
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
 
@@ -52,10 +53,16 @@ public class ParachuteManager : MonoBehaviour
         SpatialBridge.actorService.localActor.avatar.ClearAttachments();
         // parachute.mesh.enabled = false;
         cam.thirdPersonOffset = defaultCamOffset;
-       // distanceTrackerUI.calculate = true;
+        // distanceTrackerUI.calculate = true;
+        trackerUI.EnableTracker();
 
     }
 
 
+    public void SetParachuteID(string id)
+    {
+        parachuteID = id;
+    }
+    
 
 }

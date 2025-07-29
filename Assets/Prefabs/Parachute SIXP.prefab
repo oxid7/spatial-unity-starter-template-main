@@ -1,0 +1,364 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &686443092103195758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686443092103195759}
+  - component: {fileID: 986926959822066499}
+  m_Layer: 0
+  m_Name: Parachute SIXP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &686443092103195759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686443092103195758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 380442205238659517}
+  - {fileID: 1012189685158193325}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &986926959822066499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686443092103195758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960434ece8771ed4cbecc56fd636ab6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savedProjectSettings: {fileID: 11400000, guid: b4d3f3931508d4e3381693ee23f6fe04,
+    type: 2}
+  version: 2
+  primarySlot: 7
+  additionalSlots: 0
+  category: 4
+  isSkinnedToHumanoidSkeleton: 0
+  attachToBone: 1
+  attachBoneTarget: 0
+  attachBoneOffset: {x: 0, y: -0.15, z: 0.1}
+  attachBoneRotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  ikTargetsEnabled: 0
+  ikLeftHandTarget: {fileID: 0}
+  ikRightHandTarget: {fileID: 0}
+  ikLeftFootTarget: {fileID: 0}
+  ikRightFootTarget: {fileID: 0}
+  customActionsEnabled: 0
+  customActionsCount: 0
+  overrideAvatarAnimations: 0
+  avatarAnimSettings:
+    idle:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    walk:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jog:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    run:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpStartIdle:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpStartMoving:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpInAir:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpLandStanding:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpLandWalking:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpLandRunning:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpLandHigh:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    jumpMultiple:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    fall:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 0
+    sit:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 1
+    emote:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 1
+    climbIdle:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 1
+    climbUp:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 1
+    climbEndTop:
+      overrideClip: {fileID: 0}
+      overrideClipMale: {fileID: 0}
+      attachmentVisible: 1
+      disableIK: 1
+    customActions: []
+  attachmentAnimatorType: 0
+  attachmentAnimClips:
+    idle: {fileID: 0}
+    walk: {fileID: 0}
+    jog: {fileID: 0}
+    run: {fileID: 0}
+    jumpStartIdle: {fileID: 0}
+    jumpStartMoving: {fileID: 0}
+    jumpInAir: {fileID: 0}
+    jumpLandStanding: {fileID: 0}
+    jumpLandWalking: {fileID: 0}
+    jumpLandRunning: {fileID: 0}
+    jumpLandHigh: {fileID: 0}
+    jumpMultiple: {fileID: 0}
+    fall: {fileID: 0}
+    sit: {fileID: 0}
+    climbIdle: {fileID: 0}
+    climbUp: {fileID: 0}
+    climbEndTop: {fileID: 0}
+    customActions: []
+--- !u!1001 &686443090563977030
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 686443092103195759}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.80000037
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.80000037
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5000007
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.50000083
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.49999925
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.49999928
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+        type: 3}
+      propertyPath: m_Name
+      value: ParaTes2t
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f6522c1af9f671489c4f464ff98ef7b, type: 3}
+--- !u!4 &1012189685158193325 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f6522c1af9f671489c4f464ff98ef7b,
+    type: 3}
+  m_PrefabInstance: {fileID: 686443090563977030}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6530579431426097837
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 686443092103195759}
+    m_Modifications:
+    - target: {fileID: 5741510715163734143, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101548340607013290, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_Name
+      value: Parachute Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101548340607013290, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.80000037
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.80000037
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.50000083
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.49999925
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.49999928
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f827ec9032735b74da4beeaa431fb50a, type: 3}
+--- !u!4 &380442205238659517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6910454013770140432, guid: f827ec9032735b74da4beeaa431fb50a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6530579431426097837}
+  m_PrefabAsset: {fileID: 0}
