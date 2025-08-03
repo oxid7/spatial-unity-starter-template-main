@@ -8,52 +8,67 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 1.005
-    second: {fileID: 2100000, guid: a1613321f0144bd41965653caa1a286b, type: 2}
+    second: {fileID: 2100000, guid: a3db1aca561a2e64780c0d47115b8537, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 3.003
-    second: {fileID: 2100000, guid: a614253d7bb07ad40a0f9581ac2a6106, type: 2}
+    second: {fileID: 2100000, guid: d05ad50046ee56e40af1e20b37012df6, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 4.003
-    second: {fileID: 2100000, guid: e8d5e4187698f6342ae8594913383cae, type: 2}
+    second: {fileID: 2100000, guid: cdace5db103366c428caafc0371f55bf, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Base.002
-    second: {fileID: 2100000, guid: 8deb230d1e8208e41ac5154243b3c7cb, type: 2}
+    second: {fileID: 2100000, guid: 0f8bdc58897e0544fbaa668f4bf11637, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Emesive.001
-    second: {fileID: 2100000, guid: def94ae8c8aadea43805da76cbf6083b, type: 2}
+    second: {fileID: 2100000, guid: 58dd8b2830774de46b85dd427aedb0ff, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Emesive.008
-    second: {fileID: 2100000, guid: c33607cbed6be0f4c9fc94777bb2c201, type: 2}
+    second: {fileID: 2100000, guid: d7e6d97b47a04cb4dab9702a3e14d8d0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Emesive3.001
-    second: {fileID: 2100000, guid: 0c530c25491d0bd4e96809bf426d69bb, type: 2}
+    second: {fileID: 2100000, guid: e16b07fbcffa06842b1b074e414069c4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Glass3
-    second: {fileID: 2100000, guid: 23898f8c5bd51054f91bdb135e856ea6, type: 2}
+    second: {fileID: 2100000, guid: 3f594d1109c1c984dab59b5d898fdb5a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Red.002
-    second: {fileID: 2100000, guid: 78a866e0911b87d43ab655f2dcb92886, type: 2}
+    second: {fileID: 2100000, guid: afbc97480fd92c5469bd8467541b30b3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: emesivie2.001
-    second: {fileID: 2100000, guid: 0082239bbe7bc8349b4d02e9f256a2bc, type: 2}
+    second: {fileID: 2100000, guid: 25eb72faff140684f849c29df9ece6ba, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Black_Green
+    second: {fileID: 2800000, guid: 864b2f2aa0dba75458bd2289fb6d77d7, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Black_Red
+    second: {fileID: 2800000, guid: e009463d45287aa4092a9f48524b6ad9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Low_1_AlbedoTransparency.png
+    second: {fileID: 2800000, guid: 563cec6d6a3e30d439c4cd6897abae15, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

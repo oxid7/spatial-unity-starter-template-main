@@ -1,0 +1,115 @@
+{
+  "ShaderGraph": "10.3.1",
+  "m_Properties": [
+    { "name": "_MainTex",       "type": "Texture2D", "default": { "texture": null } },
+    { "name": "_WindSpeed",     "type": "Vector1",   "default": 1.0 },
+    { "name": "_WindDirection","type": "Vector2",   "default": [ 1.0, 0.0 ] },
+    { "name": "_WindScale",     "type": "Vector1",   "default": 0.5 }
+  ],
+  "m_Nodes": [
+    {
+      "__type": "UnityEditor.ShaderGraph.TimeNode",
+      "nodeGuid": "time-node"
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.PropertyNode",
+      "propertyName": "_WindSpeed",
+      "nodeGuid": "speed-node"
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.PropertyNode",
+      "propertyName": "_WindDirection",
+      "nodeGuid": "dir-node"
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.PropertyNode",
+      "propertyName": "_WindScale",
+      "nodeGuid": "scale-node"
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.UVNode",
+      "nodeGuid": "uv-node"
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.SimpleNoiseNode",
+      "nodeGuid": "noise-node",
+      "settings": { "scale": 1.0 }
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.AddNode",
+      "nodeGuid": "add-time-speed",
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "time-node" },
+        { "slotId": 1, "nodeGuid": "speed-node" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.MultiplyNode",
+      "nodeGuid": "mul-uv-time",
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "uv-node" },
+        { "slotId": 1, "nodeGuid": "add-time-speed" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.TilingAndOffsetNode",
+      "nodeGuid": "tile-node",
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "mul-uv-time" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.AddNode",
+      "nodeGuid": "add-dir",
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "tile-node" },
+        { "slotId": 1, "nodeGuid": "dir-node" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.SampleTexture2DNode",
+      "nodeGuid": "noise-sample",
+      "textureSlotId": 0,
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "add-dir" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.MultiplyNode",
+      "nodeGuid": "mul-noise-scale",
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "noise-sample" },
+        { "slotId": 1, "nodeGuid": "scale-node" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.VertexPositionNode",
+      "nodeGuid": "vert-pos"
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.AddNode",
+      "nodeGuid": "vert-add",
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "vert-pos" },
+        { "slotId": 1, "nodeGuid": "mul-noise-scale" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.SampleTexture2DNode",
+      "nodeGuid": "tex-sample",
+      "textureSlotId": 0,
+      "inputs": [
+        { "slotId": 0, "nodeGuid": "tile-node" }
+      ]
+    },
+    {
+      "__type": "UnityEditor.ShaderGraph.MasterNode",
+      "nodeGuid": "master",
+      "pipeline": "UniversalForward",
+      "inputs": {
+        "Position": { "slotId": 0, "nodeGuid": "vert-add" },
+        "Color":    { "slotId": 0, "nodeGuid": "tex-sample" }
+      }
+    }
+  ]
+}

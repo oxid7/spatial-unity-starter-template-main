@@ -7,6 +7,7 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
 
     public GameObject watchButton;
+    
 
     public TextMeshProUGUI vStep; // Assign this in the Inspector
     public TextMeshProUGUI vCal;
@@ -22,9 +23,9 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
 
 
 
-    private float step;
-    private float cal;
-    private string email;
+    public float step;
+    public float cal;
+    public string email;
     private void Start()
     {
         calculate = false;
@@ -100,6 +101,16 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         information.text = email;
 
 
+    }
+   
+
+    public void Convert()
+    {
+        cal = 0;
+        step = 0;
+        totalDistanceTravelled = 0;
+        vStep.text = step.ToString();
+        vCal.text = cal.ToString();
     }
    
 }
