@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fd09977e73a749a1bdfe9da120eb817, type: 3}
+  m_Name: VertexAnimationDataObject_SheepWhite1 Idle
+  m_EditorClassIdentifier: 
+  meshName: SheepWhite1
+  mesh: {fileID: -3033316954589801948, guid: afc1a8cbd5317a040bd7f57082edc6d9, type: 3}
+  vertexCount: 2306
+  animationClipDatas:
+  - clipName: GoatSheep_idle
+    positionTexture: {fileID: 0}
+    normalTexture: {fileID: 0}
+    frameCount: 120
+    frameRate: 30
+    isLooping: 1
+  materialOverride: {fileID: 0}
+  positionTexture0PropertyName: _AnimTexPos0
+  normalTexture0PropertyName: _AnimTexNorm0
+  positionTexture1PropertyName: _AnimTexPos1
+  normalTexture1PropertyName: _AnimTexNorm1
+  positionTexture2PropertyName: _AnimTexPos2
+  normalTexture2PropertyName: _AnimTexNorm2
+  positionTexture3PropertyName: _AnimTexPos3
+  normalTexture3PropertyName: _AnimTexNorm3
+  texelSizePropertyName: _TexelSize
+  animationParamsPropertyName: _AnimParams

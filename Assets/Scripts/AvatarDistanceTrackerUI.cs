@@ -106,9 +106,9 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
 
     public void Convert()
     {
-        cal = 0;
-        step = 0;
-        totalDistanceTravelled = 0;
+         //  cal = 0;
+         //  step = 0;
+        // totalDistanceTravelled = 0;
         vStep.text = step.ToString();
         vCal.text = cal.ToString();
     }

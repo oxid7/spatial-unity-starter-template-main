@@ -27,6 +27,14 @@ MonoBehaviour:
     asset: {fileID: 986926959822066499, guid: 8c11a0c9cc613874e9a561d239bcb137, type: 3}
   - id: 2
     asset: {fileID: 986926959822066499, guid: 60af2bb370d86e14faa7099e692064ce, type: 3}
+  - id: zplq82o78o4jkchczuur0fqh
+    asset: {fileID: 8979099744582886940, guid: 53730f5b37a06244fbc78bc299fbaf07, type: 3}
+  - id: selfie2nd
+    asset: {fileID: 3805287422007348069, guid: 0ec06aba0a992094e835da32f71b4f38, type: 3}
+  - id: selfiestuck
+    asset: {fileID: 550953027604409799, guid: 0dd8195a684ebee418c36a24c68cfda4, type: 3}
+  - id: selfieend
+    asset: {fileID: 7225448405138627028, guid: b489011dd6d1e084cac7a2bb43795422, type: 3}
   networkPrefabs: []
   settings:
     serverInstancingEnabled: 1

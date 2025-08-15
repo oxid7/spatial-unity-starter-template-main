@@ -9,6 +9,8 @@ public class ParachuteManager : MonoBehaviour
     [SerializeField] private Vector3 force;
     [SerializeField] private string parachuteID;
     [SerializeField] private AvatarDistanceTrackerUI trackerUI;
+    [SerializeField] private Transform[] teleportPoints;
+    [SerializeField] private GameObject Ui;
    // [SerializeField] private AvatarDistanceTrackerUI distanceTrackerUI;
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
 
@@ -28,11 +30,26 @@ public class ParachuteManager : MonoBehaviour
         localAvatar.AddForce(force);
         localAvatar.airControl = 0.03f;
         StartCoroutine(Deploy());
-
+        
     }
 
 
+    public void FastLanding()
+    {
 
+        int v = Random.Range(0, teleportPoints.Length);
+        localAvatar.position = teleportPoints[v].position;
+
+
+        localAvatar.airControl = 1;
+        localAvatar.fallingGravityMultiplier = 1;
+        localAvatar.gravityMultiplier = 1;
+        SpatialBridge.actorService.localActor.avatar.ClearAttachments();
+        // parachute.mesh.enabled = false;
+        cam.thirdPersonOffset = defaultCamOffset;
+        // distanceTrackerUI.calculate = true;
+       // trackerUI.EnableTracker();
+    }
     IEnumerator Deploy()
     {
         yield return new WaitForSeconds(1.3f);
@@ -42,8 +59,9 @@ public class ParachuteManager : MonoBehaviour
         cam.thirdPersonOffset = new Vector3(0, 4, -10);
         // localAvatar.AddForce(new Vector3(2, 1f, 0));
         // localAvatar.fallingGravityMultiplier = 0.02f;
-        localAvatar.gravityMultiplier = 0.02f;
+        localAvatar.gravityMultiplier = 0.1f;
         localAvatar.onLanded += LocalAvatar_onLanded;
+        Ui.SetActive(true);
     }
     private void LocalAvatar_onLanded()
     {
@@ -55,7 +73,7 @@ public class ParachuteManager : MonoBehaviour
         cam.thirdPersonOffset = defaultCamOffset;
         // distanceTrackerUI.calculate = true;
         trackerUI.EnableTracker();
-
+        Ui.SetActive(false);
     }
 
 
