@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Gate : MonoBehaviour
 {
@@ -15,12 +16,19 @@ public class Gate : MonoBehaviour
     public TextMeshProUGUI remainingBatteryTwo;
 
     public GameObject convertUI;
+    public Button convertButton;
     public GameObject convertError;
 
     public AvatarDistanceTrackerUI trackerUI;
 
     private bool isAlive;
 
+
+
+    private void OnEnable()
+    {
+      //  convertButton.onClick.AddListener(Convert);
+    }
     private void Start()
     {
         isAlive = true;
@@ -46,6 +54,8 @@ public class Gate : MonoBehaviour
 
     public void Convert()
     {
+
+        /*
         if (trackerUI.cal < requiredCal)
         {
             convertError.SetActive(true);
@@ -60,13 +70,36 @@ public class Gate : MonoBehaviour
             remianingBatteries--;
             remainingBatteryOne.text = "Available batteries : " + remianingBatteries.ToString();
             remainingBatteryTwo.text = "Available batteries : " + remianingBatteries.ToString();
+        } 
+        
+        VERSION No 1 */
+
+
+        if (trackerUI.cal > requiredCal)
+        {
+            convertButton.gameObject.SetActive(true);
+            return;
         }
+
+
     }
 
 
+
+
+    public void ExitArea()
+    {
+        convertButton.gameObject.SetActive(false);
+    }
     IEnumerator TurnOffError()
     {
         yield return new WaitForSeconds(7);
         convertError.SetActive(false);
+    }
+
+
+    private void OnDisable()
+    {
+      //  convertButton.onClick.RemoveListener(Convert);
     }
 }

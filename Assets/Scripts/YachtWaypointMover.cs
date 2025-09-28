@@ -1,9 +1,12 @@
+﻿using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class YachtWaypointMover : MonoBehaviour
 {
     [Header("Path")]
     public Transform[] waypoints;
+    public Transform[] waitingWaypoints;
     [Tooltip("Distance considered 'arrived' at a waypoint (XZ only).")]
     public float arriveThreshold = 0.5f;
 
@@ -12,7 +15,7 @@ public class YachtWaypointMover : MonoBehaviour
     public float moveSpeed = 5f;
     [Tooltip("Degrees per second.")]
     public float turnSpeed = 90f;
-    [Tooltip("Optional pause at each waypoint (seconds).")]
+    [Tooltip("Optional pause at waiting waypoints (seconds).")]
     public float waitAtWaypoint = 0f;
 
     [Header("Path Mode")]
@@ -23,24 +26,24 @@ public class YachtWaypointMover : MonoBehaviour
     [Tooltip("If set, overrides initial Y with this water height.")]
     public bool useFixedWaterHeight = false;
     public float waterY = 0f;
-    [Tooltip("Draw gizmos for the path in the Scene view.")]
     public bool drawGizmos = true;
 
+    [Header("Events")]
+    public UnityEvent onBoatArrival;
+
     int _index = 0;
-    int _dir = 1; // used for ping-pong
+    int _dir = 1;
     float _fixedY;
     float _waitTimer = 0f;
+    bool _isWaiting = false;
 
     void Start()
     {
-        // Lock the yacht to a fixed Y at start (or a provided water height)
         _fixedY = useFixedWaterHeight ? waterY : transform.position.y;
 
-        // Snap to fixed Y immediately
         var p = transform.position;
         transform.position = new Vector3(p.x, _fixedY, p.z);
 
-        // Start at the closest waypoint if none assigned, otherwise keep given index
         if (waypoints != null && waypoints.Length > 0 && _index >= waypoints.Length)
             _index = 0;
     }
@@ -49,16 +52,47 @@ public class YachtWaypointMover : MonoBehaviour
     {
         if (waypoints == null || waypoints.Length == 0) return;
 
-        // Current target (with Y locked)
         Vector3 target = waypoints[_index].position;
         target.y = _fixedY;
 
-        // Compute flat direction on XZ
         Vector3 toTarget = target - transform.position;
         toTarget.y = 0f;
         float sqrDist = toTarget.sqrMagnitude;
 
-        // Smoothly rotate toward target using a proper angular speed
+        // ✅ Handle arrival & waiting first
+        if (sqrDist <= arriveThreshold * arriveThreshold)
+        {
+            // Start waiting only once at this waypoint
+            if (!_isWaiting && waitAtWaypoint > 0f && waitingWaypoints.Contains(waypoints[_index]))
+            {
+                _waitTimer = waitAtWaypoint;
+                _isWaiting = true;
+
+                // 🚨 Trigger UnityEvent
+                onBoatArrival?.Invoke();
+            }
+
+            // If currently waiting, count down and stop moving/rotating
+            if (_waitTimer > 0f)
+            {
+                _waitTimer -= Time.deltaTime;
+                return;
+            }
+
+            // Done waiting → reset and advance
+            if (_isWaiting)
+            {
+                _isWaiting = false;
+                AdvanceIndex();
+                return;
+            }
+
+            // If not a waiting waypoint → advance immediately
+            AdvanceIndex();
+            return;
+        }
+
+        // ✅ Rotate toward target
         if (toTarget.sqrMagnitude > 0.0001f)
         {
             Quaternion desired = Quaternion.LookRotation(toTarget.normalized, Vector3.up);
@@ -69,42 +103,23 @@ public class YachtWaypointMover : MonoBehaviour
             );
         }
 
-        // Move forward at constant speed in current forward direction
-        // (gives nice boat-like arcs while turning)
+        // ✅ Move forward
         Vector3 forwardFlat = transform.forward; forwardFlat.y = 0f;
         if (forwardFlat.sqrMagnitude > 0.0001f)
         {
             forwardFlat.Normalize();
             Vector3 next = transform.position + forwardFlat * (moveSpeed * Time.deltaTime);
-            next.y = _fixedY; // lock Y
+            next.y = _fixedY;
             transform.position = next;
         }
         else
         {
-            // Fallback: if somehow forward is invalid, move directly towards target
             Vector3 next = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
             next.y = _fixedY;
             transform.position = next;
         }
 
-        // Arrival check (XZ plane)
-        if (sqrDist <= arriveThreshold * arriveThreshold)
-        {
-            if (_waitTimer <= 0f && waitAtWaypoint > 0f)
-            {
-                _waitTimer = waitAtWaypoint;
-            }
-
-            if (_waitTimer > 0f)
-            {
-                _waitTimer -= Time.deltaTime;
-                return;
-            }
-
-            AdvanceIndex();
-        }
-
-        // Hard-lock Y every frame (in case something else nudges it)
+        // Hard-lock Y every frame
         var pos = transform.position;
         transform.position = new Vector3(pos.x, _fixedY, pos.z);
     }
@@ -131,7 +146,7 @@ public class YachtWaypointMover : MonoBehaviour
             if (_index >= waypoints.Length)
             {
                 if (loop) _index = 0;
-                else _index = waypoints.Length - 1; // stay on last
+                else _index = waypoints.Length - 1;
             }
         }
     }
@@ -157,6 +172,16 @@ public class YachtWaypointMover : MonoBehaviour
                     b.y = a.y;
                     Gizmos.DrawLine(a, b);
                 }
+            }
+        }
+
+        if (waitingWaypoints != null)
+        {
+            Gizmos.color = Color.yellow;
+            foreach (var w in waitingWaypoints)
+            {
+                if (w != null)
+                    Gizmos.DrawWireSphere(w.position, 0.6f);
             }
         }
     }

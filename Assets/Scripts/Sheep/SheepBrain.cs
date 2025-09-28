@@ -54,6 +54,15 @@ public class SheepBrain : MonoBehaviour
     [Tooltip("Throttle SetDestination() calls to avoid jitter from frequent re-pathing.")]
     public float repathInterval = 0.25f;
 
+
+    [Header("Sounds")]
+    public AudioSource source;
+    public AudioSource Bellsource;
+
+    [Tooltip("The sound sheep makes when you get close")]
+    public AudioClip[] mees;
+    private bool hasPlayedMee = false;
+
     [Header("Debug")]
     public bool drawGizmos = true;
 
@@ -196,6 +205,16 @@ public class SheepBrain : MonoBehaviour
         // 2) Player too close or still fleeing — keep running
         if (distanceToPlayer < playerSafeDistance || (isRunningAway && distanceToPlayer < sheepRunningDistance))
         {
+            if(!hasPlayedMee)
+            {
+                int v = Random.Range(0,mees.Length + 1);
+                source.PlayOneShot(mees[v]);
+                hasPlayedMee = true;
+            }
+            if(!Bellsource.isPlaying)
+            {
+                Bellsource.Play();
+            }
             isRunningAway = true;
 
             Vector3 runDirection = (transform.position - player);
@@ -227,6 +246,7 @@ public class SheepBrain : MonoBehaviour
             // Animation parameters (blend + playback up)
             animator.SetFloat("Speed", runSpeed, 0.15f, Time.deltaTime);
             animator.speed = Mathf.Lerp(animator.speed, runAnimSpeedMultiplier, 6f * Time.deltaTime);
+            
 
             return true; // busy
         }
@@ -234,6 +254,8 @@ public class SheepBrain : MonoBehaviour
         // 3) Player is far enough — start cooldown
         if (isRunningAway && distanceToPlayer >= sheepRunningDistance)
         {
+            hasPlayedMee = false;
+            Bellsource.Stop();
             isCooldownAfterRun = true;
             runCooldownTimer = 0f;
 

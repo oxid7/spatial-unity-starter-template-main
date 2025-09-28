@@ -8,9 +8,10 @@ public class ParachuteManager : MonoBehaviour
     [SerializeField] private Transform startPoint;
     [SerializeField] private Vector3 force;
     [SerializeField] private string parachuteID;
-    [SerializeField] private AvatarDistanceTrackerUI trackerUI;
+    public AvatarDistanceTrackerUI trackerUI;
     [SerializeField] private Transform[] teleportPoints;
     [SerializeField] private GameObject Ui;
+    [SerializeField] private AudioManager audio;
    // [SerializeField] private AvatarDistanceTrackerUI distanceTrackerUI;
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
 
@@ -28,8 +29,8 @@ public class ParachuteManager : MonoBehaviour
 
         localAvatar.Jump();
         localAvatar.AddForce(force);
-        localAvatar.airControl = 0.03f;
-        StartCoroutine(Deploy());
+        localAvatar.airControl = 0.015f;
+        StartCoroutine(Deploy(true));
         
     }
 
@@ -50,20 +51,30 @@ public class ParachuteManager : MonoBehaviour
         // distanceTrackerUI.calculate = true;
        // trackerUI.EnableTracker();
     }
-    IEnumerator Deploy()
+    public IEnumerator Deploy(bool sound)
     {
         yield return new WaitForSeconds(1.3f);
         localAvatar.velocity = Vector3.zero;
         // parachute.mesh.enabled = true;
-        SpatialBridge.actorService.localActor.avatar.EquipAttachment(AssetType.EmbeddedAsset, parachuteID);
+        SpatialBridge.actorService.localActor.avatar
+            .EquipAttachment(AssetType.EmbeddedAsset, parachuteID);
         cam.thirdPersonOffset = new Vector3(0, 4, -10);
         // localAvatar.AddForce(new Vector3(2, 1f, 0));
         // localAvatar.fallingGravityMultiplier = 0.02f;
-        localAvatar.gravityMultiplier = 0.1f;
+        localAvatar.gravityMultiplier = 0.05f;
         localAvatar.onLanded += LocalAvatar_onLanded;
         Ui.SetActive(true);
+        if (sound) 
+        {
+            audio.PlayWelcomeToTheMoon();
+        }
+        
     }
-    private void LocalAvatar_onLanded()
+
+
+
+    
+    public void LocalAvatar_onLanded()
     {
         localAvatar.airControl = 1;
         localAvatar.fallingGravityMultiplier = 1;
@@ -74,8 +85,17 @@ public class ParachuteManager : MonoBehaviour
         // distanceTrackerUI.calculate = true;
         trackerUI.EnableTracker();
         Ui.SetActive(false);
+        localAvatar.maxJumpCount = 2;
     }
 
+
+    public void LocalAvatarSetup()
+    {
+        cam.thirdPersonOffset = defaultCamOffset;
+        // distanceTrackerUI.calculate = true;
+        trackerUI.EnableTracker();
+        Ui.SetActive(false);
+    }
 
     public void SetParachuteID(string id)
     {

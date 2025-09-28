@@ -1,0 +1,50 @@
+using UnityEngine;
+using UnityEditor;
+
+public class RopeGenerator : EditorWindow
+{
+    private Transform pointA;
+    private Transform pointB;
+    private float ropeThickness = 0.1f;
+
+    [MenuItem("Tools/Rope Generator")]
+    public static void ShowWindow()
+    {
+        GetWindow<RopeGenerator>("Rope Generator");
+    }
+
+    private void OnGUI()
+    {
+        GUILayout.Label("Generate Rope (Cylinder) Between Two Points", EditorStyles.boldLabel);
+
+        pointA = (Transform)EditorGUILayout.ObjectField("Point A", pointA, typeof(Transform), true);
+        pointB = (Transform)EditorGUILayout.ObjectField("Point B", pointB, typeof(Transform), true);
+        ropeThickness = EditorGUILayout.FloatField("Rope Thickness", ropeThickness);
+
+        if (GUILayout.Button("Generate Rope"))
+        {
+            if (pointA != null && pointB != null)
+            {
+                CreateRope(pointA.position, pointB.position, ropeThickness);
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Error", "Please assign both Point A and Point B!", "OK");
+            }
+        }
+    }
+
+    private void CreateRope(Vector3 start, Vector3 end, float thickness)
+    {
+        Vector3 midPoint = (start + end) / 2f;
+        Vector3 direction = end - start;
+        float length = direction.magnitude;
+
+        GameObject rope = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        rope.name = "Rope";
+
+        rope.transform.position = midPoint;
+        rope.transform.up = direction.normalized;
+        rope.transform.localScale = new Vector3(thickness, length / 2f, thickness); // y = half-length
+    }
+}

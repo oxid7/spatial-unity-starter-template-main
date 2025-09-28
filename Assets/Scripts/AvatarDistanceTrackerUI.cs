@@ -26,6 +26,14 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
     public float step;
     public float cal;
     public string email;
+
+
+
+    // Runtime UI 
+
+    public TextMeshProUGUI vStepRealtime;
+    public TextMeshProUGUI vCalRealtime;
+
     private void Start()
     {
         calculate = false;
@@ -76,6 +84,8 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
             cal = estimatedKcal;
             step = estimatedSteps;
 
+            vStepRealtime.text = step.ToString();
+            vCalRealtime.text = cal.ToString("F1");
 
             timer = 0f; // reset timer
         }
@@ -92,12 +102,17 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         calculate = true;
     }
 
+    public void DisableTracker()
+    {
+        watchButton.SetActive(false);
+        calculate = false;
+    }
     public void ShowWatch()
     {
 
 
         vStep.text = step.ToString();
-        vCal.text = cal.ToString();
+        vCal.text = cal.ToString("F1");
         information.text = email;
 
 
@@ -110,7 +125,7 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
          //  step = 0;
         // totalDistanceTravelled = 0;
         vStep.text = step.ToString();
-        vCal.text = cal.ToString();
+        vCal.text = cal.ToString("F1");
     }
    
 }

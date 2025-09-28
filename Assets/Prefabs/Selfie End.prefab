@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   savedProjectSettings: {fileID: 11400000, guid: b4d3f3931508d4e3381693ee23f6fe04,
     type: 2}
-  targetClip: {fileID: 7400000, guid: 9bede4695e3fad6409e1a65bb208c456, type: 2}
+  targetClip: {fileID: 7400000, guid: fb9d85eeb40e80445926296eae10d28f, type: 2}

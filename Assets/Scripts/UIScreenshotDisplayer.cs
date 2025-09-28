@@ -5,10 +5,13 @@ using SpatialSys.UnitySDK;
 public class UIScreenshotDisplayer : MonoBehaviour
 {
     [Tooltip("Drag your RawImage here")]
+
     public RawImage targetUI;
     public GameObject selfieUI;
     public Camera photoCamera;
     public SelfieCamera selfie;
+    [SerializeField, Range(0f, 0.60f)]
+    float sideCropPercent = 0.30f; // 30% by default, tweak in Inspector
     public ICameraService cameraService => SpatialBridge.cameraService;
     public IAvatar avatar => SpatialBridge.actorService.localActor.avatar;
     // Call this from your UI button’s OnClick()
@@ -34,48 +37,42 @@ public class UIScreenshotDisplayer : MonoBehaviour
     IEnumerator TakePhoto()
     {
         yield return new WaitForEndOfFrame();
-        // 2️⃣ Figure out the actual backbuffer size
-        int width = cameraService.scaledPixelWidth;
-        int height = cameraService.scaledPixelHeight;
 
-        // 3️⃣ Create a RenderTexture and a temp Camera
-        RenderTexture rt = RenderTexture.GetTemporary(width, height, 24);
-        var go = new GameObject("TempCaptureCam");
-        var cam = go.AddComponent<Camera>();
+        int screenWidth = Screen.width;
+        int screenHeight = Screen.height;
 
-        // 4️⃣ Copy all settings & transform from Spatial’s main camera
-       // cameraService.CopyFromMainCamera(cam);
-        cam.transform.position = selfie.transform.position;
-        cam.transform.rotation = selfie.transform.rotation;
-        cam.fieldOfView = 80;
-        cam.nearClipPlane = 0.1f;
-        cam.farClipPlane = 400;
+        // Hide selfie UI before capture
+        selfie.ui.SetActive(false);
+        yield return new WaitForEndOfFrame();
 
-        selfie.canvas.SetActive(false);
-        // 5️⃣ Render into our RT
-        cam.targetTexture = rt;
-        cam.Render();
-
-        // 6️⃣ Read pixels back into a Texture2D
-        RenderTexture prevRT = RenderTexture.active;
-        RenderTexture.active = rt;
-        Texture2D screenshot = new Texture2D(width, height, TextureFormat.RGB24, false);
-        screenshot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        // Capture full screen
+        Texture2D screenshot = new Texture2D(screenWidth, screenHeight, TextureFormat.RGB24, false);
+        screenshot.ReadPixels(new Rect(0, 0, screenWidth, screenHeight), 0, 0);
         screenshot.Apply();
 
-        // 7️⃣ Clean up
-        cam.targetTexture = null;
-        RenderTexture.active = prevRT;
-        RenderTexture.ReleaseTemporary(rt);
-        Destroy(go);
+        // --- Crop percentage from left and right ---
+        int cropX = Mathf.RoundToInt(screenWidth * sideCropPercent);
+        int targetWidth = screenWidth - (cropX * 2);
+        int targetHeight = screenHeight;
 
-        // 8️⃣ Push it into your UI
-        targetUI.texture = screenshot;
+        Color[] pixels = screenshot.GetPixels(cropX, 0, targetWidth, targetHeight);
+        Texture2D portrait = new Texture2D(targetWidth, targetHeight, TextureFormat.RGB24, false);
+        portrait.SetPixels(pixels);
+        portrait.Apply();
+
+        // Assign cropped portrait
+        targetUI.texture = portrait;
         targetUI.enabled = true;
-        selfie.canvas.SetActive(true);
+
+        // Restore UI
+        selfie.ui.SetActive(true);
         selfie.DeSpawn();
         selfieUI.SetActive(true);
     }
+
+
+
+
     IEnumerator CaptureCoroutine()
     {
 
