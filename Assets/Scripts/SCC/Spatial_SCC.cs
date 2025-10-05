@@ -13,7 +13,8 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
     public GameObject UIControls;
     public Variables varS;
     public UnityEvent onCarActive;
-
+    
+    public Fan fan;
 
     private SpatialSyncedObject _syncedObject;
     private SCC_Inputs _inputs = new SCC_Inputs();
@@ -60,6 +61,28 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
         if (_syncedObject.isLocallyOwned)
         {
             inputProcessor.OverrideInputs(_inputs);
+            if(transform.position.y < 19.4)
+            {
+                // in sea 
+                
+                if(inputProcessor.inputs.throttleInput > 0 )
+                {
+                    fan.enabled = true;
+                    fan.slowDown = false;
+                }
+
+
+                else if( fan.slowDown == false)
+                {
+                    fan.slowDown = true;
+                }
+
+            }
+
+            else if (fan.slowDown == false)
+            {
+                fan.slowDown = true;
+            }
         }
     }
 
@@ -167,11 +190,14 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
     public void OnVehicleThrottleInput(InputPhase inputPhase, float inputThrottle)
     {
         _inputs.throttleInput = inputThrottle;
+        
+
     }
 
     public void OnVehicleReverseInput(InputPhase inputPhase, float inputReverse)
     {
         _inputs.brakeInput = inputReverse;
+      
     }
 
     public void OnVehiclePrimaryActionInput(InputPhase inputPhase)

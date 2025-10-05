@@ -47,6 +47,8 @@ public class SCC_Particles : MonoBehaviour {
 
     public float slip = .25f;       //  If wheel sideways or forward skid exceeds this limit slip, emission will be enabled.
 
+    public bool inSea = false;
+
     private void Awake() {
 
         //  Getting all wheels of the vehicle.
@@ -82,6 +84,21 @@ public class SCC_Particles : MonoBehaviour {
     }
 
     private void Update() {
+
+
+        if (transform.position.y < 19.4)
+        {
+            // in sea
+            inSea = true;
+
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                    wheelEmissions[i].enabled = false;
+            }
+            return;
+        }
+
+        inSea = false;
 
         WheelParticles();
         ExhaustParticles();

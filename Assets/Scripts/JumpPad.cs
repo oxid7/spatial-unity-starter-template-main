@@ -11,6 +11,14 @@ public class JumpPad : MonoBehaviour
     [SerializeField] private Vector3 force;
     public void Jumper()
     {
+
+        localAvatar.velocity = Vector3.zero;
+        Invoke("JumpAfter", 0.01f);
+        
+    }
+
+    public void JumpAfter()
+    {
         parachute.trackerUI.DisableTracker();
 
         // localAvatar.Jump();
@@ -22,7 +30,6 @@ public class JumpPad : MonoBehaviour
 
         StartCoroutine(CallDeploy());
     }
-
     IEnumerator CallDeploy()
     {
         yield return new WaitForSeconds(3f);

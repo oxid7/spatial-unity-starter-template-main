@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 1294413200274283162}
   - component: {fileID: 3896276388864077392}
   - component: {fileID: 1294636253313895713}
+  - component: {fileID: 8790366369998520395}
   m_Layer: 0
   m_Name: Palm Tree Instanced
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2763370034693920063
 Transform:
@@ -97,3 +98,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0096849585, y: 0.007142483, z: 0.058470055}
   m_Center: {x: -0.0009974051, y: 0.001117501, z: 0.029233264}
+--- !u!205 &8790366369998520395
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247841673410219909}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.010329025, y: 0.002408499, z: 0.037150208}
+  m_Size: 0.07430395
+  m_FadeMode: 1
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.0336901
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3896276388864077392}
+  m_Enabled: 1

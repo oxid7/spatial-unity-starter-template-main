@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 651654408896661946}
+  - component: {fileID: 6835115304459393871}
   m_Layer: 0
   m_Name: Grass Instanced
   m_TagString: Untagged
@@ -32,6 +33,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &6835115304459393871
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162398519924757248}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.056358635, y: 0.22088516, z: 0.091481805}
+  m_Size: 1.5145643
+  m_FadeMode: 1
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.04638128
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3004469832669306837}
+  m_Enabled: 1
 --- !u!1 &1128378178229667985
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +161,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5754084199372789682, guid: 1ad025ae04a7c78419db00c88b98e152,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7862377587805469749, guid: 4a60744963cae0646bf47bb40ef62dbb,
+        type: 3}
     - target: {fileID: 919132149155446097, guid: 1ad025ae04a7c78419db00c88b98e152,
         type: 3}
       propertyPath: m_Name
@@ -149,10 +175,16 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1ad025ae04a7c78419db00c88b98e152,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 123
+      value: 115
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ad025ae04a7c78419db00c88b98e152, type: 3}
+--- !u!23 &3004469832669306837 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 1ad025ae04a7c78419db00c88b98e152,
+    type: 3}
+  m_PrefabInstance: {fileID: 4500099629127500625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4177416001068885178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1ad025ae04a7c78419db00c88b98e152,

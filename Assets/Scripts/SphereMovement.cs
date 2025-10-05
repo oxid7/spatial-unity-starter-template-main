@@ -6,12 +6,12 @@ public class SphereMovement : MonoBehaviour
 {
     public Vector3 movement;
     public float speed;
-
-
-
     public void Update()
     {
+        
        transform.Rotate(movement * speed * Time.deltaTime);
 
     }
+
+
 }

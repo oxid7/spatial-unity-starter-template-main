@@ -251,6 +251,8 @@ public class SCC_Drivetrain : MonoBehaviour {
         else
             direction = 1;
 
+
+
     }
 
     private void Reset() {
