@@ -17,6 +17,8 @@ public class YachtAnimationControllerAuto : MonoBehaviour
     public TextMeshProUGUI timeT;
     public bool animateOnPhysics = false;
 
+    public float playbackSpeed = 1f;
+
     private Animator animator;
     private AnimationClip targetClip;
     private float loopDuration;
@@ -61,7 +63,7 @@ public class YachtAnimationControllerAuto : MonoBehaviour
         double netTime = SpatialBridge.networkingService.networkTime;
 
         // Compute time within the loop
-        float localTime = (float)(netTime % loopDuration);
+        float localTime = (float)(netTime * playbackSpeed % loopDuration);
 
         // Apply the animation pose for this exact time
         targetClip.SampleAnimation(gameObject, localTime);

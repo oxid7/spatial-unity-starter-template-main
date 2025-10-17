@@ -16,6 +16,9 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
     
     public Fan fan;
 
+    public Vector3 initialPosition;
+    public Vector3 initialRotation;
+
     private SpatialSyncedObject _syncedObject;
     private SCC_Inputs _inputs = new SCC_Inputs();
     private bool _isDriving = false;
@@ -110,6 +113,15 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
         UpdateShouldBeDriving();
     }
 
+
+    public void ResetPositionWithPlayer()
+    {
+        if (_syncedObject.isLocallyOwned)
+        {
+            transform.position = initialPosition;
+            transform.eulerAngles = initialRotation;
+        }
+    }
     private void UpdateShouldBeDriving()
     {
         if (_syncedObject.isLocallyOwned)

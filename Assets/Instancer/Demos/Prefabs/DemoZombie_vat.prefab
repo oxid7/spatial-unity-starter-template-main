@@ -44,13 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 642ac2fe4aeb34e05a5bb3d5a2563def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _targetGameObject: {fileID: 0}
+  _addRenderer: 0
   _skinnedMeshRenderer: {fileID: 189918961035256541}
   _animator: {fileID: 844108118038015150}
-  _getAllClips: 1
   _animationClipNames: []
   _fallbackMaterial: {fileID: 2100000, guid: 5214194018d9d4e31935e342000a6f1c, type: 2}
-  _addRenderer: 0
-  _targetRoot: {fileID: 0}
+  _animationDataObject: {fileID: 0}
 --- !u!1001 &6547189827151679807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -977,7 +977,6 @@ MonoBehaviour:
   _skinnedMeshRenderer: {fileID: 189918961035256541}
   _meshRenderer: {fileID: 8634019608481955016}
   _meshFilter: {fileID: 8634019608481955017}
-  useVertexAnimation: 1
 --- !u!4 &6725830313149216468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9dd8e79b916f842fea28674f93f94463,

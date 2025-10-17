@@ -152,7 +152,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.11372549}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EdgeGlowThickness: {r: 0.02, g: 0.04, b: 0, a: 0}
     - _EmissionColor: {r: 1.5399055, g: 1.5399055, b: 1.5399055, a: 1}

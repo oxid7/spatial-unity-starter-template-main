@@ -30,6 +30,15 @@ public class ParachuteManager : MonoBehaviour
         localAvatar.Jump();
         localAvatar.AddForce(force);
         localAvatar.airControl = 0.015f;
+        int id = Random.Range(1, 3);
+        switch (id)
+        {
+            case 1:
+                parachuteID = "1";
+                break;
+            case 2: parachuteID = "2"; break;
+        }
+
         StartCoroutine(Deploy(true));
         
     }

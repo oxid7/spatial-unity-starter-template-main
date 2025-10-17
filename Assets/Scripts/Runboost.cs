@@ -15,7 +15,7 @@ public class Runboost : MonoBehaviour
 
     private float defaultWalkSpeed;
     private float defaultRunSpeed;
-
+    private bool hasBoosted = false; 
 
     private void Start()
     {
@@ -25,19 +25,23 @@ public class Runboost : MonoBehaviour
     }
     public void Boost()
     {
+        if (hasBoosted) return;
         localAvatar.runSpeed = localAvatar.runSpeed * speed;
         localAvatar.walkSpeed = localAvatar.walkSpeed * speed;
         waitButton.fillAmount = 1;
         waitButton.enabled = true;
+        
         // ButtonTimer();
         StartCoroutine(ButtonTimer());
         Invoke("SetBack", boostTime);
+        hasBoosted = true;
     }
 
     public void SetBack()
     {
         localAvatar.walkSpeed = defaultWalkSpeed;
         localAvatar.runSpeed = defaultRunSpeed;
+       
     }
 
     private IEnumerator ButtonTimer()
@@ -50,6 +54,7 @@ public class Runboost : MonoBehaviour
         }
 
         waitButton.enabled = false;
+        hasBoosted = false;
     }
 
 
