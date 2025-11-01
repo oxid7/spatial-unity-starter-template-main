@@ -16,12 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: b424ded41359f874481804867c8d93c7
-  m_SerializeEntries:
-  - m_GUID: 0728b1cff290e2f45b0139691d0d9070
-    m_Address: Assets/Assets/Teaser Use Only/Videos/Daric_Sphere Video.mp4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2551b7dc81f63dc49be1cc634e80e0a8, type: 2}
   m_SchemaSet:
