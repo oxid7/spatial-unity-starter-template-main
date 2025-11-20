@@ -2,9 +2,11 @@
 using UnityEngine.UI; // For regular UI (Text)
 using SpatialSys.UnitySDK;
 using TMPro;
+using System;
 public class AvatarDistanceTrackerUI : MonoBehaviour
 {
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
+    public ScoreboardManager scoreboardManager;
 
     public GameObject watchButton;
     
@@ -34,9 +36,15 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
     public TextMeshProUGUI vStepRealtime;
     public TextMeshProUGUI vCalRealtime;
 
+
+    // Credentials 
+
+    private string username;
+
     private void Start()
     {
         calculate = false;
+        username = SpatialBridge.actorService.localActor.username;
     }
 
     void Update()
@@ -44,6 +52,7 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         if (!calculate) 
         {
             // distanceText.enabled = false;
+            
             return;
         }
 
@@ -115,7 +124,7 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         vCal.text = cal.ToString("F1");
         information.text = email;
 
-
+        scoreboardManager.AddOrUpdatePlayerScore(username, TimeHelper.GetCurrentDubaiTimestamp(), cal, (int)step);
     }
    
 

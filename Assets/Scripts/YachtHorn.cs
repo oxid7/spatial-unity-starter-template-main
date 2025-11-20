@@ -38,12 +38,12 @@ public class YachtHorn : MonoBehaviour
 
         if (!initiated) return;
 
-        CheckGate(gate1, ref played1);
-        CheckGate(gate2, ref played2);
-        CheckGate(gate3, ref played3);
+      //  CheckGate(gate1, ref played1);
+     //   CheckGate(gate2, ref played2);
+     //   CheckGate(gate3, ref played3);
         CheckGate(gate4, ref played4);
-        CheckGate(gate5, ref played5);
-        CheckGate(gate6, ref played6);
+      //  CheckGate(gate5, ref played5);
+      //  CheckGate(gate6, ref played6);
 
         /*
         if (looped && played1 && played2 && played3 && played4 && played5 && played6)
@@ -60,7 +60,7 @@ public class YachtHorn : MonoBehaviour
         {
             if (!playedFlag)
             {
-                if (gate == gate6)
+                if (gate == gate4) // it was gate6
                 {
                     StartCoroutine(ResetHorn());
                 }
