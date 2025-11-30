@@ -25,7 +25,12 @@ public class ScoreboardManager : MonoBehaviour
 {
     public Variables syncedVar;     // Visual Scripting variables (for now)
     private const string ScoreJsonKey = "scoreJson";
+    private const string MarathonJsonKey = "MarathonLeaderboard";
     private const string DateFormat = "yyyy-MM-dd HH:mm:ss";   // must match your TimeHelper format
+
+    // Remote event ID for "add score" requests
+    private const byte ADD_SCORE_EVENT_ID = 1;
+    private const byte ADD_MARATHON_EVENT_ID = 4;
 
     public TextMeshProUGUI scoreboardLog;
 
@@ -35,16 +40,85 @@ public class ScoreboardManager : MonoBehaviour
     public GameObject scoreboardPanel;
     public TMP_InputField usernameSearchFiled;
 
-    // ----------------------
-    // WRITE: add/update entry
-    // ----------------------
+    // ------------------------------------------------------------------
+    // LIFECYCLE: subscribe/unsubscribe to remote events
+    // ------------------------------------------------------------------
+    private void OnEnable()
+    {
+        SpatialBridge.networkingService.remoteEvents.onEvent += HandleRemoteEvent;
+    }
+
+    private void OnDisable()
+    {
+        SpatialBridge.networkingService.remoteEvents.onEvent -= HandleRemoteEvent;
+    }
+
+    // This runs on ALL clients when a remote event is raised.
+    // We only actually mutate the scoreboard on the MASTER client.
+    private void HandleRemoteEvent(NetworkingRemoteEventArgs args)
+    {
+        /*
+        if (args.eventID != ADD_SCORE_EVENT_ID)
+            return;*/
+
+         if (args.eventID != ADD_MARATHON_EVENT_ID) return;
+
+
+        // Only master client should write the scoreboard JSON
+        if (!SpatialBridge.networkingService.isMasterClient)
+            return;
+
+        // We expect: username (string), date (string), calories (float), steps (int)
+        string username = (string)args.eventArgs[0];
+        string duration = (string)args.eventArgs[1];  //change it to date
+        float calories = (float)args.eventArgs[2];
+        int steps = (int)args.eventArgs[3];
+
+        AddOrUpdatePlayerScore(username, duration, calories, steps); //change it to date
+    }
+
+
+    // ------------------------------------------------------------------
+    // PUBLIC ENTRY POINT: call this from other scripts
+    // ------------------------------------------------------------------
+    // Everyone calls THIS. It sends a network event to all clients.
+    // Only master client processes it and actually updates the JSON.
+    // NOTE: date is now passed IN from the caller (you can use TimeHelper there).
+    public void RequestAddScore(string username, string date, float calories, int steps)
+    {
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(
+            ADD_SCORE_EVENT_ID,
+            username,
+            date,
+            calories,
+            steps
+        );
+    }
+
+
+
+    public void RequestAddMarathon(string username, string duration, float calories, int steps)
+    {
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(
+            ADD_MARATHON_EVENT_ID,
+            username,
+            duration,
+            calories,
+            steps
+        );
+    }
+
+    // ------------------------------------------------------------------
+    // WRITE: add entry (MASTER CLIENT ONLY, via remote event)
+    // ------------------------------------------------------------------
+    // Do NOT call this directly from other scripts. Use RequestAddScore.
     public void AddOrUpdatePlayerScore(string username, string date, float calories, int steps)
     {
         // 1) Read current JSON
         string json = "";
-        if (syncedVar.declarations.IsDefined(ScoreJsonKey))
+        if (syncedVar.declarations.IsDefined(MarathonJsonKey))
         {
-            json = syncedVar.declarations.Get<string>(ScoreJsonKey);
+            json = syncedVar.declarations.Get<string>(MarathonJsonKey);
         }
 
         // 2) JSON -> object
@@ -59,7 +133,7 @@ public class ScoreboardManager : MonoBehaviour
         var newEntry = new PlayerScoreEntry
         {
             username = username,
-            date = date,
+            date = date,         // 👈 comes from the client
             calories = caloriesText,
             steps = steps
         };
@@ -70,15 +144,14 @@ public class ScoreboardManager : MonoBehaviour
         string newJson = JsonUtility.ToJson(data, true);
 
         // 5) Save back into synced variable
-        syncedVar.declarations.Set(ScoreJsonKey, newJson);
+        syncedVar.declarations.Set(MarathonJsonKey, newJson);
         if (scoreboardLog != null)
             scoreboardLog.text = newJson;
     }
 
-    // ----------------------
+    // ------------------------------------------------------------------
     // HELPERS: parsing / loading
-    // ----------------------
-
+    // ------------------------------------------------------------------
     private DateTime ParseDate(string dateStr)
     {
         if (DateTime.TryParseExact(
@@ -116,9 +189,9 @@ public class ScoreboardManager : MonoBehaviour
     {
         string json = "";
 
-        if (syncedVar.declarations.IsDefined(ScoreJsonKey))
+        if (syncedVar.declarations.IsDefined(MarathonJsonKey)) // change into ScoreJsonKey
         {
-            json = syncedVar.declarations.Get<string>(ScoreJsonKey);
+            json = syncedVar.declarations.Get<string>(MarathonJsonKey);
         }
 
         if (string.IsNullOrEmpty(json))
@@ -144,23 +217,28 @@ public class ScoreboardManager : MonoBehaviour
         {
             var rowObj = Instantiate(rowPrefab, rowsParent);
             var rowUI = rowObj.GetComponent<ScoreboardRowUI>();
-            rowUI.SetData(entry);
+            rowUI.SetData(entry, entriesToShow.IndexOf(entry)+1);
         }
     }
 
-    // ----------------------
+    // ------------------------------------------------------------------
     // READ: full scoreboard
-    // ----------------------
-
+    // ------------------------------------------------------------------
     public void RefreshScoreboardUI()
     {
         ScoreboardData data = LoadScoreboardData();
         if (data.entries == null)
             return;
 
-        // sort by date (newest first)
         var list = new List<PlayerScoreEntry>(data.entries);
-        list.Sort((a, b) => ParseDate(b.date).CompareTo(ParseDate(a.date)));
+
+        // Sort by calories (highest first)
+        list.Sort((a, b) =>
+        {
+            float calA = ParseCalories(a.calories);
+            float calB = ParseCalories(b.calories);
+            return calB.CompareTo(calA); // bigger first
+        });
 
         BuildRows(list);
     }
@@ -173,22 +251,32 @@ public class ScoreboardManager : MonoBehaviour
             scoreboardPanel.SetActive(true);
     }
 
+
+    public void ShowUserboard()
+    {
+        var list = GetBestEntryPerUser();
+        if(list == null) return;
+
+        BuildRows(list);
+
+        if (scoreboardPanel != null)
+            scoreboardPanel.SetActive(true);
+
+    }
     public void HideScoreboard()
     {
         if (scoreboardPanel != null)
             scoreboardPanel.SetActive(false);
     }
 
-    // ----------------------
+    // ------------------------------------------------------------------
     // READ: filter by username
-    // ----------------------
-
-
+    // ------------------------------------------------------------------
     public void SearchForUser()
-    { 
+    {
         ShowScoreboardForUsername(usernameSearchFiled.text);
-
     }
+
     public void ShowScoreboardForUsername(string usernameFilter)
     {
         if (string.IsNullOrWhiteSpace(usernameFilter))
@@ -217,14 +305,9 @@ public class ScoreboardManager : MonoBehaviour
             scoreboardPanel.SetActive(true);
     }
 
-    // ----------------------
-    // NEW: one "best" row per user
-    // ----------------------
-
-    // For each username:
-    //  - pick the entry with the newest date
-    //  - if multiple on that date, pick the one with highest calories
-    // Then return them sorted by date (newest first), then calories (highest first).
+    // ------------------------------------------------------------------
+    // READ: one "best" row per user
+    // ------------------------------------------------------------------
     public List<PlayerScoreEntry> GetBestEntryPerUser()
     {
         ScoreboardData data = LoadScoreboardData();
@@ -247,12 +330,12 @@ public class ScoreboardManager : MonoBehaviour
 
             if (entryDate > currentDate)
             {
-                // newer date wins
+                
                 bestByUser[entry.username] = entry;
             }
             else if (entryDate == currentDate)
             {
-                // same date → pick higher calories
+              
                 float entryCal = ParseCalories(entry.calories);
                 float currentCal = ParseCalories(currentBest.calories);
 
@@ -281,5 +364,3 @@ public class ScoreboardManager : MonoBehaviour
         return resultList;
     }
 }
-
- 

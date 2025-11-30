@@ -19,6 +19,8 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
     public Vector3 initialPosition;
     public Vector3 initialRotation;
 
+    public UnityEvent OnDriveStart;
+
     private SpatialSyncedObject _syncedObject;
     private SCC_Inputs _inputs = new SCC_Inputs();
     private bool _isDriving = false;
@@ -46,12 +48,25 @@ public class Spatial_SCC : MonoBehaviour, IVehicleInputActionsListener
     public void DriveTheCar()
     {
 
+        if ((bool)varS.declarations.Get("canBeDrived") == false) return;
         if ((bool)varS.declarations.Get("hasDriver")) return;
         _syncedObject.TakeoverOwnership();
         UpdateShouldBeDriving();
-
+        OnDriveStart.Invoke();
     }
 
+    public void DisableCar()
+    {
+        _syncedObject.TakeoverOwnership();
+        varS.declarations.Set("canBeDrived", false);
+    }
+
+
+    public void EnableCar()
+    {
+        _syncedObject.TakeoverOwnership();
+        varS.declarations.Set("canBeDrived", true);
+    }
     private void OnDestroy()
     {
         SpatialBridge.inputService.ReleaseInputCapture(this);

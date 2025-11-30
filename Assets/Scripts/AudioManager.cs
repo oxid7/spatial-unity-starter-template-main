@@ -31,6 +31,11 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void StopWelcomeToTheMoon()
+    {
+        announcerSource.Stop();
+    }
+
     public void PlaySixpMusic()
     {
         if (musicSource.isPlaying) return;
@@ -40,7 +45,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-
+    
 
     IEnumerator SourceEffects(float fadeIn, float duration, float fadeOut, AudioSource source, float defaultVol)
     {

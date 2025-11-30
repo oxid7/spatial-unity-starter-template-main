@@ -12,7 +12,9 @@ public class ParachuteManager : MonoBehaviour
     [SerializeField] private Transform[] teleportPoints;
     [SerializeField] private GameObject Ui;
     [SerializeField] private AudioManager audio;
-   // [SerializeField] private AvatarDistanceTrackerUI distanceTrackerUI;
+    // [SerializeField] private AvatarDistanceTrackerUI distanceTrackerUI;
+
+    private bool hasAlreadyLanded = false;
     private IAvatar localAvatar => SpatialBridge.actorService.localActor.avatar;
 
     private ICameraService cam => SpatialBridge.cameraService;
@@ -26,7 +28,7 @@ public class ParachuteManager : MonoBehaviour
     public void Jumper()
     {
 
-
+        hasAlreadyLanded = false;
         localAvatar.Jump();
         localAvatar.AddForce(force);
         localAvatar.airControl = 0.015f;
@@ -85,6 +87,7 @@ public class ParachuteManager : MonoBehaviour
     
     public void LocalAvatar_onLanded()
     {
+        if (hasAlreadyLanded) return;
         localAvatar.airControl = 1;
         localAvatar.fallingGravityMultiplier = 1;
         localAvatar.gravityMultiplier = 1;
@@ -95,6 +98,7 @@ public class ParachuteManager : MonoBehaviour
         trackerUI.EnableTracker();
         Ui.SetActive(false);
         localAvatar.maxJumpCount = 2;
+        hasAlreadyLanded = true;
     }
 
 

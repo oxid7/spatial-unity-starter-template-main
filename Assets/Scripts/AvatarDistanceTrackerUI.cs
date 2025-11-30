@@ -124,10 +124,23 @@ public class AvatarDistanceTrackerUI : MonoBehaviour
         vCal.text = cal.ToString("F1");
         information.text = email;
 
-        scoreboardManager.AddOrUpdatePlayerScore(username, TimeHelper.GetCurrentDubaiTimestamp(), cal, (int)step);
+        scoreboardManager.RequestAddScore(username, TimeHelper.GetCurrentDubaiTimestamp(), cal, (int)step);
     }
-   
 
+
+   
+     public void ResetTracker()
+     {
+        isInitialized = false;
+        step = 0;
+        cal = 0;
+        vStep.text = step.ToString();
+        vCal.text = cal.ToString("F1");
+        vStepRealtime.text = step.ToString();
+        vCalRealtime.text = cal.ToString("F1");
+        totalDistanceTravelled = 0;
+        timer = 0f; // reset timer
+    }
     public void Convert()
     {
          //  cal = 0;

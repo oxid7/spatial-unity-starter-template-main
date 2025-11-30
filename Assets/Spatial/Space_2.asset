@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5621e5ad1b9084f8bb66de8251cfd5a3, type: 3}
+  m_Name: Space_2
+  m_EditorClassIdentifier: 
+  version: 1
+  sku: 5cyhx9agw7xicnmkgvbm3qn0
+  packageName: Metaworld Test Stage
+  thumbnail: {fileID: 2800000, guid: adbe755a11ab2694bb178c3a4813d97a, type: 3}
+  savedProjectSettings: {fileID: 11400000, guid: b4d3f3931508d4e3381693ee23f6fe04,
+    type: 2}
+  worldID: zrz1drcoi2pyhlvshh1uq
+  scene: {fileID: 102900000, guid: c013091582525d949a7245b9116df035, type: 3}
+  csharpAssembly: {fileID: 5897886265953266890, guid: aead32239147c4649b1a918fe6edb34b,
+    type: 3}
+  embeddedPackageAssets:
+  - id: 1
+    asset: {fileID: 986926959822066499, guid: 8c11a0c9cc613874e9a561d239bcb137, type: 3}
+  - id: 2
+    asset: {fileID: 986926959822066499, guid: 60af2bb370d86e14faa7099e692064ce, type: 3}
+  - id: zplq82o78o4jkchczuur0fqh
+    asset: {fileID: 8979099744582886940, guid: 53730f5b37a06244fbc78bc299fbaf07, type: 3}
+  - id: selfie2nd
+    asset: {fileID: 3805287422007348069, guid: 0ec06aba0a992094e835da32f71b4f38, type: 3}
+  - id: selfiestuck
+    asset: {fileID: 550953027604409799, guid: 0dd8195a684ebee418c36a24c68cfda4, type: 3}
+  - id: selfieend
+    asset: {fileID: 7225448405138627028, guid: b489011dd6d1e084cac7a2bb43795422, type: 3}
+  - id: Handler
+    asset: {fileID: -5069099826335357924, guid: ac7d58a329c8d23468a1c229b7efbb85,
+      type: 3}
+  - id: Zipline_Idle
+    asset: {fileID: 1842904429401096159, guid: 94a0223b56496dd459aa06b608f2d19f, type: 3}
+  - id: Swim_Idle
+    asset: {fileID: 4139710178782997024, guid: ac2cd626a5f6e004b9e20990cb8a6068, type: 3}
+  - id: Swim
+    asset: {fileID: 5499311871303408030, guid: 39c419d42eefff14fb579110a5a61f76, type: 3}
+  networkPrefabs: []
+  settings:
+    serverInstancingEnabled: 1
+    serverCapacitySetting: 0
+    serverInstanceCapacity: 16
