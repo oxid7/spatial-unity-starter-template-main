@@ -10,7 +10,7 @@ public class FinishLine : MonoBehaviour
     [SerializeField] private AvatarDistanceTrackerUI trackerUI;
     [SerializeField] private TextMeshProUGUI finishText;
     private string username;
-    private bool hasWorked = false;
+    public bool hasWorked = false;
 
     public bool inMarathon = false;
     private void Start()
@@ -58,4 +58,5 @@ public class FinishLine : MonoBehaviour
         return string.Format("{0:00}:{1:00}", minutes, seconds);
 
     }
+
 }

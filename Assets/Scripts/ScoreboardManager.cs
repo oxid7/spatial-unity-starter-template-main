@@ -31,6 +31,7 @@ public class ScoreboardManager : MonoBehaviour
     // Remote event ID for "add score" requests
     private const byte ADD_SCORE_EVENT_ID = 1;
     private const byte ADD_MARATHON_EVENT_ID = 4;
+    private const byte RESET_MARATHON_EVENT_ID = 81;
 
     public TextMeshProUGUI scoreboardLog;
 
@@ -61,20 +62,31 @@ public class ScoreboardManager : MonoBehaviour
         if (args.eventID != ADD_SCORE_EVENT_ID)
             return;*/
 
-         if (args.eventID != ADD_MARATHON_EVENT_ID) return;
+        //   if (args.eventID != ADD_MARATHON_EVENT_ID) return;
+        if (args.eventID == ADD_MARATHON_EVENT_ID)
+        {
+            // Only master client should write the scoreboard JSON
+            if (!SpatialBridge.networkingService.isMasterClient)
+                return;
 
+            // We expect: username (string), date (string), calories (float), steps (int)
+            string username = (string)args.eventArgs[0];
+            string duration = (string)args.eventArgs[1];  //change it to date
+            float calories = (float)args.eventArgs[2];
+            int steps = (int)args.eventArgs[3];
 
-        // Only master client should write the scoreboard JSON
-        if (!SpatialBridge.networkingService.isMasterClient)
-            return;
+            AddOrUpdatePlayerScore(username, duration, calories, steps); //change it to date
+        }
 
-        // We expect: username (string), date (string), calories (float), steps (int)
-        string username = (string)args.eventArgs[0];
-        string duration = (string)args.eventArgs[1];  //change it to date
-        float calories = (float)args.eventArgs[2];
-        int steps = (int)args.eventArgs[3];
+        if(args.eventID == RESET_MARATHON_EVENT_ID)
+        {
 
-        AddOrUpdatePlayerScore(username, duration, calories, steps); //change it to date
+            // Only master client should write the scoreboard JSON
+            if (!SpatialBridge.networkingService.isMasterClient)
+                return;
+
+            ResetMarathon();
+        }
     }
 
 
@@ -106,6 +118,17 @@ public class ScoreboardManager : MonoBehaviour
             calories,
             steps
         );
+    }
+
+
+    public void RequestReset()
+    {
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(RESET_MARATHON_EVENT_ID);
+    }
+
+    public void ResetMarathon()
+    {
+        syncedVar.declarations.Set(MarathonJsonKey, "");
     }
 
     // ------------------------------------------------------------------

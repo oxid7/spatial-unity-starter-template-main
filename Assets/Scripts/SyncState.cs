@@ -11,6 +11,8 @@ public class SyncState : MonoBehaviour
     [SerializeField] private GameObject shiled;
     [SerializeField] private HBD hBD;
     [SerializeField] private Transform[] marathonSpots;
+    [SerializeField] private Transform[] yachtSpots;
+    [SerializeField] private Transform[] farmSpots;
     [SerializeField] private GameObject backColider;
     [SerializeField] private GameObject frontColider;
     [SerializeField] private GameObject endLineTrigger;
@@ -22,6 +24,10 @@ public class SyncState : MonoBehaviour
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip music;
     [SerializeField] private ScoreboardManager scoreboardManager;
+    [SerializeField] private AudioSource confetiAudio;
+    [SerializeField] private AudioSource sixpStandAudio;
+    [SerializeField] private ParticleSystem confetiVFX;
+
     
 
 
@@ -41,6 +47,10 @@ public class SyncState : MonoBehaviour
     private const byte SetPlaceEvent = 2;
     private const byte SetMarathonEvent = 3;
     private const byte ShowScoreboardEvent = 5;
+    private const byte SetConfetiEvent = 6;
+    private const byte ResetMarathonEvent = 11;
+    private const byte LocatYachtEvent = 12;
+    private const byte LocatFarmEvent = 13;
 
 
 
@@ -75,7 +85,26 @@ public class SyncState : MonoBehaviour
         {
             scoreboardManager.ShowScoreboard();
         }
+
+        if (args.eventID == SetConfetiEvent)
+        {
+            SetConfeti();
+        }
         
+        if(args.eventID == ResetMarathonEvent)
+        {
+            ResetLeaderBoard();
+        }
+
+        if(args.eventID == LocatYachtEvent)
+        {
+            LocatePlayersInYacht();
+        }
+
+        if(args.eventID== LocatFarmEvent)
+        {
+            LocatePlayersInFarm();
+        }
     }
 
     public void PlayFireworks()
@@ -121,6 +150,17 @@ public class SyncState : MonoBehaviour
         localAvatar.position = marathonSpots[v].position;
     }
 
+    public void LocatePlayersInYacht()
+    {
+        int v = Random.Range(0, yachtSpots.Length);
+        localAvatar.position = yachtSpots[v].position;
+    }
+
+    public void LocatePlayersInFarm()
+    {
+        int v = Random.Range(0, farmSpots.Length);
+        localAvatar.position = farmSpots[v].position;
+    }
 
     public void SetMarathon()
     {
@@ -129,6 +169,21 @@ public class SyncState : MonoBehaviour
          
     }
 
+    public void ResetLeaderBoard()
+    {
+        source.Stop();
+        timer.StopAndHideCountdown();
+        scoreboardManager.RequestReset();
+        finishLine.hasWorked = false;
+        finishLine.inMarathon = false;
+    }
+
+    public void SetConfeti()
+    {
+        confetiVFX.Play();
+        confetiAudio.Play();
+        sixpStandAudio.Play();
+    }
 
     IEnumerator MarathonCounter()
     {
@@ -222,5 +277,31 @@ public class SyncState : MonoBehaviour
     {
         _syncObject.TakeoverOwnership();
         SpatialBridge.networkingService.remoteEvents.RaiseEventAll(ShowScoreboardEvent);
+    }
+
+    public void UIConfeti()
+    {
+        _syncObject.TakeoverOwnership();
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(SetConfetiEvent);
+
+    }
+
+    public void UIResetLeaderBoard() 
+    {
+        _syncObject.TakeoverOwnership();
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(ResetMarathonEvent);
+    }
+
+
+    public void UILocateYacht()
+    {
+        _syncObject.TakeoverOwnership();
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(LocatYachtEvent);
+    }
+
+    public void UILocateFarm()
+    {
+        _syncObject.TakeoverOwnership();
+        SpatialBridge.networkingService.remoteEvents.RaiseEventAll(LocatFarmEvent);
     }
 }
