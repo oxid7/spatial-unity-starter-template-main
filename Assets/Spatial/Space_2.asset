@@ -44,6 +44,22 @@ MonoBehaviour:
     asset: {fileID: 4139710178782997024, guid: ac2cd626a5f6e004b9e20990cb8a6068, type: 3}
   - id: Swim
     asset: {fileID: 5499311871303408030, guid: 39c419d42eefff14fb579110a5a61f76, type: 3}
+  - id: Arms Hip Hop Dance
+    asset: {fileID: 5146497027761944802, guid: ddacb4ab0ea1a784ba3385a9f9c62e88, type: 3}
+  - id: Gangnam Style
+    asset: {fileID: 3524129496985950211, guid: 66cf9c51200624742810b8d21adaec70, type: 3}
+  - id: Macarena Dance
+    asset: {fileID: 1859510507285077885, guid: c3ab3d361f9b11c4f9f233d1f1d9c864, type: 3}
+  - id: Wave Hip Hop Dance
+    asset: {fileID: 538462541789180476, guid: 37ebd305ea16ec84bb3b2e01279567a1, type: 3}
+  - id: Ymca Dance
+    asset: {fileID: 5164812819975950367, guid: 5729bcaa8ca3a6842993a65e6f7ef619, type: 3}
+  - id: Zombie Dance
+    asset: {fileID: 8767647731741852266, guid: 917b9f0fccaab1642a2045f66a8c1daa, type: 3}
+  - id: Samba Dance
+    asset: {fileID: 5247392044815905234, guid: bb16fa3b943c8234dad3814265539788, type: 3}
+  - id: Breakdance Freezes
+    asset: {fileID: 4672928659692731762, guid: 72b10cf087d43d4448dd658720448d34, type: 3}
   networkPrefabs: []
   settings:
     serverInstancingEnabled: 1

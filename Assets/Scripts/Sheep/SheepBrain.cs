@@ -55,6 +55,16 @@ public class SheepBrain : MonoBehaviour
     public float repathInterval = 0.25f;
 
 
+    [Header("Inside Mode (override everything)")]
+    public bool insideCall = false;          // set true to force sheep to go inside & stay
+    public Transform insideTarget;           // where it should go and stay
+    public Transform insideEntranceTarget;           // where it should go and stay
+    public float insideSettleDistance = 2f;  // how close is "arrived"
+
+    private bool _insideMode = false;        // latched: once triggered, stays forever
+
+
+
     [Header("Sounds")]
     public AudioSource source;
     public AudioSource Bellsource;
@@ -98,10 +108,78 @@ public class SheepBrain : MonoBehaviour
 
     void Update()
     {
+
+        if(Vector3.Distance(transform.position, insideEntranceTarget.position) < 10)
+        {
+            insideCall = true;
+        }
+
+        if (insideCall) _insideMode = true;
+
+        if (_insideMode)
+        {
+            GoInside();
+            return;
+        }
+
         bool busy = RunAway(GetPlayerPosition());
         if (!busy)
             Patrol();
     }
+
+
+
+    private void GoInside()
+    {
+        // Hard-cancel all other behaviors/states (abandon what he's doing)
+        isRunningAway = false;
+        isCooldownAfterRun = false;
+        runCooldownTimer = 0f;
+
+        isWaiting = false;
+        waitTimer = 0f;
+
+        hasPlayedMee = false;
+        if (Bellsource != null && Bellsource.isPlaying)
+            Bellsource.Stop();
+
+        animator.SetBool("Eating", false);
+
+        // If no inside target is set, just idle in place
+        if (insideTarget == null)
+        {
+            agent.ResetPath();
+            agent.speed = 0f;
+            animator.SetFloat("Speed", 0f, 0.2f, Time.deltaTime);
+            animator.speed = Mathf.Lerp(animator.speed, 1f, 6f * Time.deltaTime);
+            return;
+        }
+
+        Vector3 target = insideTarget.position;
+        float dist = transform.position.DistanceXZ(target);
+
+        // Walk toward inside target
+        if (dist > insideSettleDistance)
+        {
+            agent.speed = agentWalkSpeed;
+            SafeSetDestination(target);
+
+            animator.SetFloat("Speed", walkSpeed, 0.2f, Time.deltaTime);
+            animator.speed = Mathf.Lerp(animator.speed, 1f, 6f * Time.deltaTime);
+        }
+        else
+        {
+            // Arrived: stop and idle forever
+            agent.ResetPath();
+            agent.speed = 0f;
+
+            animator.SetFloat("Speed", 0f, 0.2f, Time.deltaTime);
+            animator.speed = Mathf.Lerp(animator.speed, 1f, 6f * Time.deltaTime);
+        }
+    }
+
+
+
 
     // ---------------- Patrol / Grazing ----------------
     private void Patrol()
